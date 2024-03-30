@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProgramaResource\Pages;
 use App\Filament\Resources\ProgramaResource\RelationManagers;
+use App\Models\Congreso;
 use App\Models\Programa;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -34,10 +35,25 @@ class ProgramaResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('encabezado')
+                    ->label('Encabezado de la programación:')
+                    ->placeholder('Martes 15')
+                    ->autofocus()
+                    ->columnSpanFull()
+                    ->helperText('Por conveniencia, en el encabezado se pone el día y la fecha')
                     ->required()
                     ->maxLength(100),
                 Forms\Components\Select::make('congreso_id')
-                    ->relationship('congreso', 'id')
+                    ->label('Seleccionar congreso:')
+                    ->relationship('congreso', 'nombre')
+                    ->default(
+                        function () {
+                            $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;
+                            return $congreso_id;
+                        }
+                    )
+                    ->columnSpanFull()
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Por defecto se seleccionara el congreso activo')
+                    ->selectablePlaceholder(false)
                     ->required(),
             ]);
     }
@@ -48,17 +64,17 @@ class ProgramaResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('encabezado')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('congreso.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('congreso.nombre'),
+                //->numeric()
+                //->sortable(),
+                /*   Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),*/
             ])
             ->filters([
                 //
@@ -70,7 +86,8 @@ class ProgramaResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array
