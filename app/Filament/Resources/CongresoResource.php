@@ -17,35 +17,65 @@ class CongresoResource extends Resource
 {
     protected static ?string $model = Congreso::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-building-library';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nombre')
+                    ->label('Nombre:')
+                    ->placeholder('II CONGRESO INTERNACIONAL DE INGENIERÍA DE SISTEMAS')
+                    ->autofocus()
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('fecha_inicio')
+                    ->label('Fecha de Inicio:')
+                    ->helperText('Fecha que iniciará el congreso')
                     ->required(),
                 Forms\Components\DatePicker::make('fecha_fin')
+                    ->label('Fecha final:')
+                    ->helperText('Fecha que culminará el congreso')
                     ->required(),
                 Forms\Components\TextInput::make('tag_fecha')
+                    ->label('Etiqueta para la fecha:')
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Información referencial de la fecha')
                     ->required()
+                    ->columnSpanFull()
+                    ->placeholder('15, 16 y 17 de Diciembre')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('tag_lugar')
+                    ->label('Etiqueta del lugar:')
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Información referencial del lugar')
                     ->required()
+                    ->columnSpanFull()
+                    ->placeholder('Bagua - Amazonas - Perú')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('tag_horarrio')
+                Forms\Components\TextInput::make('tag_horario')
+                    ->label('Etiqueta del horario:')
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Información referencial del horario')
                     ->required()
+                    ->columnSpanFull()
+                    ->placeholder('8:00 am - 1:40 pm')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('tema')
+                    ->label('Tema:')
+                    ->columnSpanFull()
+                    ->placeholder('Tecnologías Emergentes para el Desarrollo Sostenible')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('descripcion')
+                Forms\Components\Textarea::make('descripcion')
+                    ->label('Descripción:')
+                    ->placeholder('En tiempos difíciles, los desafíos deben ser transfomados en retos y los retos en soluciones. Las Tecnologías de la Información, nuestra mejor herramienta.')
                     ->required()
+                    ->rows(3)
+                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('es_seleccionado')
+                    ->hiddenOn('create')
                     ->required(),
             ]);
     }
@@ -63,15 +93,24 @@ class CongresoResource extends Resource
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tag_fecha')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('tag_lugar')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tag_horarrio')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('tag_horario')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('tema')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('descripcion')
-                    ->searchable(),
+                    ->searchable()->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('es_seleccionado')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')

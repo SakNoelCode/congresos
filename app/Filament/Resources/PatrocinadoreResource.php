@@ -17,7 +17,13 @@ class PatrocinadoreResource extends Resource
 {
     protected static ?string $model = Patrocinadore::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Patrocinador';
+
+    protected static ?string $pluralModelLabel = 'Patrocinadores';
+
+    protected static ?string $navigationIcon = 'heroicon-s-currency-dollar';
+
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {

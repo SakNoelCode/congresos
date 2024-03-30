@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('fecha_fin');
             $table->string('tag_fecha');
             $table->string('tag_lugar');
-            $table->string('tag_horarrio');
+            $table->string('tag_horario');
             $table->string('tema');
             $table->string('descripcion');
             $table->boolean('es_seleccionado')->default(false);

@@ -17,7 +17,15 @@ class GaleriaResource extends Resource
 {
     protected static ?string $model = Galeria::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Galería';
+
+    protected static ?string $pluralModelLabel = 'Galería';
+
+    protected static ?string $navigationIcon = 'heroicon-s-camera';
+
+    protected static ?string $slug = 'galeria';
+
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
