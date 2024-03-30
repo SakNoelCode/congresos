@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('ponentes', function (Blueprint $table) {
             $table->id();
-            $table->string('gerundio', 30);
+            $table->string('gerundio', 30)->nullable();
             $table->string('nombres');
             $table->string('descripcion_breve');
-            $table->string('descripcion_larga');
+            $table->string('descripcion_larga', 1000);
             $table->string('img_path', 2048);
             $table->string('centro_estudios');
             $table->foreignId('congreso_id')->constrained('congresos')->cascadeOnDelete();

@@ -4,13 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PonenteResource\Pages;
 use App\Filament\Resources\PonenteResource\RelationManagers;
+use App\Models\Congreso;
 use App\Models\Ponente;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PonenteResource extends Resource
@@ -39,30 +42,43 @@ class PonenteResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('descripcion_larga')
+                TinyEditor::make('descripcion_larga')
+                    ->helperText('Maximo 1000 caracteres')
                     ->label('Descripción larga')
-                    ->placeholder('Es Ingeniero en mecatrónica formado en la Universidad Tecnológica de Nayarit (México). Amplia experiencia y habilidades en proyectos de emprendimiento, mentoreo de startups, desarrollo de software, algoritmos de machine learning e inteligencia artificial.
-                    En los últimos 3 años ha trabajado en proyectos de innovación aplicados al sector gubernamental.
-                    Habilidades avanzadas en Programación con SQL, Diseño CAD, Programación de sistemas open source: Raspberry Pi, Arduino; Programación de microcontroladores.
-                    Premio al Desempeño de Excelencia CENEVAL, por el puntaje obtenido en el examen EGEL de Ing. en Mecatrónica.
-                    Premio Estatal a la Juventud 2012, entregado por el Gobierno del Estado de Nayarit, México.
-                    Presea Bernardo Quintana 2013 (premio nacional otorgado por el CONALEP).')
-                    ->rows(8)
+                    ->simple()
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('img_path')
-                    ->required()
-                    ->maxLength(2048),
                 Forms\Components\TextInput::make('gerundio')
-                    ->required()
+                    ->label('Gerundio:')
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Jerarquía o cargo del ponente')
+                    ->placeholder('Dr., Ing. Bach.')
+                    //->required()
                     ->maxLength(30),
                 Forms\Components\TextInput::make('centro_estudios')
+                    ->label('Centro de estudios:')
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Universidad o institución que representa')
+                    ->placeholder('Universidad Peruana de Ciencias Aplicadas')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('congreso_id')
-                    ->relationship('congreso', 'id')
+                    ->label('Congreso que participa:')
+                    ->relationship('congreso', 'nombre')
+                    ->default(
+                        function () {
+                            $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;
+                            return $congreso_id;
+                        }
+                    )
+                    ->columnSpanFull()
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Por defecto se seleccionara el congreso activo')
+                    ->selectablePlaceholder(false)
                     ->required(),
+                Forms\Components\TextInput::make('img_path')
+                    ->label('Imagen representativa del ponente:')
+                    ->required()
+                    ->maxLength(2048),
+
             ]);
     }
 
