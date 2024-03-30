@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PatrocinadoreResource\Pages;
 use App\Filament\Resources\PatrocinadoreResource\RelationManagers;
+use App\Models\Congreso;
 use App\Models\Patrocinadore;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -29,13 +30,30 @@ class PatrocinadoreResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('img_path')
-                    ->required()
-                    ->maxLength(2048),
-                Forms\Components\TextInput::make('descripcion')
-                    ->maxLength(255),
                 Forms\Components\Select::make('congreso_id')
-                    ->relationship('congreso', 'id')
+                    ->label('Seleccionar congreso:')
+                    ->relationship('congreso', 'nombre')
+                    ->default(
+                        function () {
+                            $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;
+                            return $congreso_id;
+                        }
+                    )
+                    ->columnSpanFull()
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Por defecto se seleccionara el congreso activo')
+                    ->selectablePlaceholder(false)
+                    ->required(),
+                Forms\Components\TextInput::make('descripcion')
+                    ->helperText('Necesario para el atributo title de la imagen')
+                    ->placeholder('Patrocinador de la tienda Orion S.R.L')
+                    ->columnSpanFull()
+                    ->label('Descripción de la Imagen:')
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('img_path')
+                    ->columnSpanFull()
+                    ->label('Suba una imagen referencial del patrocinador:')
+                    ->image()
+                    ->imageEditor()
                     ->required(),
             ]);
     }
@@ -44,20 +62,11 @@ class PatrocinadoreResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('img_path')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('img_path')
+                    ->label('Imagen')
+                    ->size(300),
                 Tables\Columns\TextColumn::make('descripcion')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('congreso.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label('Descripción')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

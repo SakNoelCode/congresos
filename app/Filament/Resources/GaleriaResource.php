@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\GaleriaResource\Pages;
 use App\Filament\Resources\GaleriaResource\RelationManagers;
+use App\Models\Congreso;
 use App\Models\Galeria;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -17,7 +18,7 @@ class GaleriaResource extends Resource
 {
     protected static ?string $model = Galeria::class;
 
-    protected static ?string $modelLabel = 'Galería';
+    protected static ?string $modelLabel = 'nuevo registro';
 
     protected static ?string $pluralModelLabel = 'Galería';
 
@@ -25,19 +26,36 @@ class GaleriaResource extends Resource
 
     protected static ?string $slug = 'galeria';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('img_path')
-                    ->required()
-                    ->maxLength(2048),
-                Forms\Components\TextInput::make('descripcion')
-                    ->maxLength(255),
                 Forms\Components\Select::make('congreso_id')
-                    ->relationship('congreso', 'id')
+                    ->label('Seleccionar congreso:')
+                    ->relationship('congreso', 'nombre')
+                    ->default(
+                        function () {
+                            $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;
+                            return $congreso_id;
+                        }
+                    )
+                    ->columnSpanFull()
+                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Por defecto se seleccionara el congreso activo')
+                    ->selectablePlaceholder(false)
+                    ->required(),
+                Forms\Components\TextInput::make('descripcion')
+                    ->helperText('Necesario para el atributo title de la imagen')
+                    ->placeholder('Imagen del congreso donde el rector da la bienvenida a todos los invitados')
+                    ->columnSpanFull()
+                    ->label('Descripción de la Imagen:')
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('img_path')
+                    ->columnSpanFull()
+                    ->label('Suba una imagen del congreso:')
+                    ->image()
+                    ->imageEditor()
                     ->required(),
             ]);
     }
@@ -46,20 +64,11 @@ class GaleriaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('img_path')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('img_path')
+                    ->label('Imagen')
+                    ->size(300),
                 Tables\Columns\TextColumn::make('descripcion')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('congreso.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label('Descripción')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

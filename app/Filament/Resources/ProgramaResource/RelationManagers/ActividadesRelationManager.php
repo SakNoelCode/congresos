@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\ProgramaResource\RelationManagers;
 
+use App\Models\Congreso;
+use App\Models\Ponente;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -9,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Unique;
 
 class ActividadesRelationManager extends RelationManager
 {
@@ -51,7 +54,17 @@ class ActividadesRelationManager extends RelationManager
                     ->columnSpanFull()
                     ->searchable()
                     ->preload()
-                    ->relationship('ponente', 'nombres'),
+                    ->relationship('ponente', 'nombres')
+                    ->unique(modifyRuleUsing: function (Unique $rule, callable $get) {
+                       // $congreso = Congreso::where('es_seleccionado', true)->first()->id;
+                       // $ponente = Ponente::where('id',$get('ponente_id'))->first();
+                        return $rule
+                            ->where('ponente_id', $get('ponente_id'));
+                           // ->where('');
+                    }, ignoreRecord: true)
+                    ->validationMessages([
+                        'unique' => 'El ponente ya esta registrado en el congreso',
+                    ]),
                 Forms\Components\Toggle::make('es_ponencia')
                     ->columnSpanFull()
                     ->required(),
