@@ -4,10 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProgramaResource\Pages;
 use App\Filament\Resources\ProgramaResource\RelationManagers;
+use App\Filament\Resources\ProgramaResource\RelationManagers\ActividadesRelationManager;
 use App\Models\Congreso;
 use App\Models\Programa;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -93,7 +95,7 @@ class ProgramaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ActividadesRelationManager::class
         ];
     }
 
