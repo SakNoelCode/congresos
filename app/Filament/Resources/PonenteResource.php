@@ -11,7 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,13 +41,16 @@ class PonenteResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-                TinyEditor::make('descripcion_larga')
+                Forms\Components\RichEditor::make('descripcion_larga')
                     ->helperText('Maximo 1000 caracteres')
-                    ->label('Descripción larga')
-                    ->simple()
+                    ->label('Descripción larga:')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                        'strike',
+                    ])
                     ->columnSpanFull()
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(1000),
                 Forms\Components\TextInput::make('gerundio')
                     ->label('Gerundio:')
                     ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Jerarquía o cargo del ponente')
@@ -74,10 +76,11 @@ class PonenteResource extends Resource
                     ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Por defecto se seleccionara el congreso activo')
                     ->selectablePlaceholder(false)
                     ->required(),
-                Forms\Components\TextInput::make('img_path')
+                Forms\Components\FileUpload::make('img_path')
                     ->label('Imagen representativa del ponente:')
-                    ->required()
-                    ->maxLength(2048),
+                    ->image()
+                    ->imageEditor()
+                    ->required(),
 
             ]);
     }
@@ -89,14 +92,20 @@ class PonenteResource extends Resource
                 Tables\Columns\TextColumn::make('gerundio')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nombres')
+                    ->label('Nombres y Apellidos')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('img_path')
+                    ->circular()
+                    ->size(120),
+                Tables\Columns\TextColumn::make('centro_estudios')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                /*
                 Tables\Columns\TextColumn::make('descripcion_breve')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('descripcion_larga')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('img_path')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('centro_estudios')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('congreso.id')
                     ->numeric()
@@ -108,19 +117,21 @@ class PonenteResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),*/
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array
