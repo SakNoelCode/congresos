@@ -5,12 +5,14 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CongresoResource\Pages;
 use App\Filament\Resources\CongresoResource\RelationManagers;
 use App\Models\Congreso;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CongresoResource extends Resource
@@ -75,7 +77,21 @@ class CongresoResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('es_seleccionado')
+                    ->helperText('Activar o desactivar el congreso')
+                    ->label('Congreso seleccionado')
                     ->hiddenOn('create')
+                    ->rules([
+                        function (?Model $record) {
+                            return function (string $attribute, $value, Closure $fail) use ($record) {
+                                $existe = Congreso::where('es_seleccionado', true)
+                                    ->where('id', '<>', $record->id)
+                                    ->get();
+                                if ($value === false && $existe) {
+                                    $fail('Debe haber al menos un congreso activo.');
+                                }
+                            };
+                        },
+                    ])
                     ->required(),
             ]);
     }
@@ -87,12 +103,19 @@ class CongresoResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('fecha_inicio')
+                    ->label('Fecha de Inicio')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('fecha_fin')
+                    ->label('Fecha final')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('tag_fecha')
+                Tables\Columns\IconColumn::make('es_seleccionado')
+                    //->sortable()
+                    ->label('Estado')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->boolean(),
+                /*       Tables\Columns\TextColumn::make('tag_fecha')
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -120,19 +143,21 @@ class CongresoResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),*/
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array

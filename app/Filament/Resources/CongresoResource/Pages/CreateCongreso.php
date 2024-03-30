@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\CongresoResource\Pages;
 
 use App\Filament\Resources\CongresoResource;
+use App\Models\Congreso;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateCongreso extends CreateRecord
 {
@@ -15,10 +17,25 @@ class CreateCongreso extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['es_seleccionado'] = false;
+        $data['es_seleccionado'] = true;
 
         return $data;
     }
+
+    /**
+     * Personalizar proceso de creación
+     */
+    protected function handleRecordCreation(array $data): Model
+    {
+        $congresos = Congreso::all();
+        foreach ($congresos as $item) {
+            $item->update([
+                'es_seleccionado' => false,
+            ]);
+        }   
+        return static::getModel()::create($data);
+    }
+
 
     /**
      * Personalizar redireccion

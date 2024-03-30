@@ -25,21 +25,38 @@ class PonenteResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('gerundio')
-                    ->required()
-                    ->maxLength(30),
+
                 Forms\Components\TextInput::make('nombres')
+                    ->label('Nombres y apellidos:')
+                    ->autofocus()
+                    ->placeholder('Christopher Alan Estrada Gonzalez')
+                    ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('descripcion_breve')
+                Forms\Components\Textarea::make('descripcion_breve')
+                    ->label('Descripción corta del ponente:')
+                    ->placeholder('Profesional con habilidades en proyectos de emprendimiento, mentoreo de startups, desarrollo de software y algoritmos de machine learning e inteligencia artificial.')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('descripcion_larga')
+                Forms\Components\Textarea::make('descripcion_larga')
+                    ->label('Descripción larga')
+                    ->placeholder('Es Ingeniero en mecatrónica formado en la Universidad Tecnológica de Nayarit (México). Amplia experiencia y habilidades en proyectos de emprendimiento, mentoreo de startups, desarrollo de software, algoritmos de machine learning e inteligencia artificial.
+                    En los últimos 3 años ha trabajado en proyectos de innovación aplicados al sector gubernamental.
+                    Habilidades avanzadas en Programación con SQL, Diseño CAD, Programación de sistemas open source: Raspberry Pi, Arduino; Programación de microcontroladores.
+                    Premio al Desempeño de Excelencia CENEVAL, por el puntaje obtenido en el examen EGEL de Ing. en Mecatrónica.
+                    Premio Estatal a la Juventud 2012, entregado por el Gobierno del Estado de Nayarit, México.
+                    Presea Bernardo Quintana 2013 (premio nacional otorgado por el CONALEP).')
+                    ->rows(8)
+                    ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('img_path')
                     ->required()
                     ->maxLength(2048),
+                Forms\Components\TextInput::make('gerundio')
+                    ->required()
+                    ->maxLength(30),
                 Forms\Components\TextInput::make('centro_estudios')
                     ->required()
                     ->maxLength(255),
