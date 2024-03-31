@@ -1,14 +1,11 @@
 <?php
 
+use App\Http\Controllers\welcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/ponente', function () {
-    return view('ponente');
-});
+//Welcome
+Route::get('/', [welcomeController::class, 'index'])->name('welcome.index');
+Route::get('/ponente/{ponente}', [welcomeController::class, 'showPonente'])->name('welcome.show-ponente');
 
 Route::get('/inscripciones', function () {
     return view('inscripciones');

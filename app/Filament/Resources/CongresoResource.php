@@ -27,12 +27,22 @@ class CongresoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nombre')
-                    ->label('Nombre:')
-                    ->placeholder('II CONGRESO INTERNACIONAL DE INGENIERÍA DE SISTEMAS')
+                Forms\Components\TextInput::make('numeracion')
+                    ->label('N°:')
+                    ->placeholder('III')
                     ->autofocus()
                     ->required()
                     ->columnSpanFull()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('nombre_1')
+                    ->label('Primer encabezado:')
+                    ->placeholder('CONGRESO INTERNACIONAL DE')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('nombre_2')
+                    ->label('Segundo encabezado:')
+                    ->placeholder('INGENIERÍA DE SISTEMAS')
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('fecha_inicio')
                     ->label('Fecha de Inicio:')

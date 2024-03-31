@@ -21,4 +21,36 @@ class Actividade extends Model
     {
         return $this->belongsTo(Programa::class);
     }
+
+    public function getHoraInicioAttribute($value)
+    {
+        // Convertir la cadena a un objeto DateTime
+        $dateTime = new \DateTime($value);
+
+        // Obtener la hora y los minutos
+        $hora = $dateTime->format('h:i');
+
+        // Obtener AM o PM
+        $periodo = $dateTime->format('A');
+
+        // Concatenar la hora y el periodo (AM/PM)
+        return $hora . ' ' . $periodo;
+        //return $value;
+    }
+
+    public function getHoraFinAttribute($value)
+    {
+        // Convertir la cadena a un objeto DateTime
+        $dateTime = new \DateTime($value);
+
+        // Obtener la hora y los minutos
+        $hora = $dateTime->format('h:i');
+
+        // Obtener AM o PM
+        $periodo = $dateTime->format('A');
+
+        // Concatenar la hora y el periodo (AM/PM)
+        return $hora . ' ' . $periodo;
+        //return $value;
+    }
 }

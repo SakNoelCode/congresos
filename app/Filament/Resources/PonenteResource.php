@@ -65,7 +65,8 @@ class PonenteResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('congreso_id')
                     ->label('Congreso que participa:')
-                    ->relationship('congreso', 'nombre')
+                    ->relationship('congreso')
+                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->numeracion} {$record->nombre_1} {$record->nombre_2}")
                     ->default(
                         function () {
                             $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;

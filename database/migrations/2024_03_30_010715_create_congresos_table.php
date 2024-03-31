@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('congresos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('numeracion');
+            $table->string('nombre_1');
+            $table->string('nombre_2');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->string('tag_fecha');

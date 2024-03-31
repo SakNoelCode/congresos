@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GaleriaResource extends Resource
@@ -34,7 +35,8 @@ class GaleriaResource extends Resource
             ->schema([
                 Forms\Components\Select::make('congreso_id')
                     ->label('Seleccionar congreso:')
-                    ->relationship('congreso', 'nombre')
+                    ->relationship('congreso')
+                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->numeracion} {$record->nombre_1} {$record->nombre_2}")
                     ->default(
                         function () {
                             $congreso_id = Congreso::where('es_seleccionado', true)->first()->id;
