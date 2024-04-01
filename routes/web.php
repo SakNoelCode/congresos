@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotManController;
 use App\Http\Controllers\welcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,6 @@ Route::get('/inscripciones', function () {
 Route::get('/inscripciones-finalizado', function () {
     return view('registroFinalizado');
 });
+
+//BotMan
+Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
