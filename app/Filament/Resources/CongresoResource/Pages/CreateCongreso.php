@@ -17,8 +17,6 @@ class CreateCongreso extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['es_seleccionado'] = true;
-
         return $data;
     }
 

@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('tag_horario');
             $table->string('tema');
             $table->string('descripcion');
-            $table->boolean('es_seleccionado')->default(false);
+            $table->boolean('es_seleccionado')->default(true);
+            $table->boolean('abierto_inscripciones')->default(true);
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@
                 <!--<li><a href="#sponsors">Sponsors</a></li>-->
                 <!--<li><a href="#contact">Contacto</a></li>-->
                 <li class="buy-tickets"><a href="/inscripciones">Inscribirse</a></li>
-                <li class="buy-tickets"><a href="/dashboard">Iniciar sesión</a></li>
+                <!--li class="buy-tickets"><a href="/dashboard">Iniciar sesión</a></li--->
             </ul>
         </nav><!-- #nav-menu-container -->
     </div>

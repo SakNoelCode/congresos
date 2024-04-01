@@ -24,7 +24,7 @@
         <li><a href="{{route('welcome.index')}}#venue">Ubicación</a></li>
 
         <li class="buy-tickets"><a href="/inscripciones">Inscribirse</a></li>
-        <li class="buy-tickets"><a href="/dashboard">Iniciar sesión</a></li>
+        <!---li class="buy-tickets"><a href="/dashboard">Iniciar sesión</a></li---->
 
       </ul>
     </nav>

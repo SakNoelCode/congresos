@@ -103,6 +103,11 @@ class CongresoResource extends Resource
                         },
                     ])
                     ->required(),
+                Forms\Components\Toggle::make('abierto_inscripciones')
+                    ->helperText('Activar o desactivar las inscripciones')
+                    ->label('Inscripciones')
+                    ->hiddenOn('create')
+                    ->required(),
             ]);
     }
 
@@ -123,6 +128,12 @@ class CongresoResource extends Resource
                 Tables\Columns\IconColumn::make('es_seleccionado')
                     //->sortable()
                     ->label('Estado')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->boolean(),
+
+                Tables\Columns\IconColumn::make('abierto_inscripciones')
+                    //->sortable()
+                    ->label('Inscripciones')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->boolean(),
                 /*       Tables\Columns\TextColumn::make('tag_fecha')

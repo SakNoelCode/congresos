@@ -17,7 +17,7 @@ class EditCongreso extends EditRecord
      */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $congresos = Congreso::all();
+        $congresos = Congreso::all()->except($record->id);
         foreach ($congresos as $item) {
             $item->update([
                 'es_seleccionado' => false,

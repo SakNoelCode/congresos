@@ -31,4 +31,9 @@ class Congreso extends Model
     {
         return $this->hasMany(Programa::class);
     }
+
+    public function invitado(): HasMany
+    {
+        return $this->hasMany(Invitado::class);
+    }
 }
