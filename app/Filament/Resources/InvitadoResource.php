@@ -124,11 +124,12 @@ class InvitadoResource extends Resource
                 ExportBulkAction::make()->exports([
                     //ExcelExport::make('table')->fromTable(),
                     ExcelExport::make('form')
-                    ->fromForm()
-                    ->withFilename(date('Y-m-d') . ' - invitados export'),
+                        ->fromForm()
+                        ->withFilename(date('Y-m-d') . ' - invitados export'),
                 ])
 
-            ]);
+            ])
+            ->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array

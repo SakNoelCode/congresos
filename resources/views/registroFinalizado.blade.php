@@ -22,11 +22,11 @@
             </div>
             <div class="registrado-mensaje">
                 <p>Hemos registrado correctamente tus datos para participar
-                    en el </p>
+                    en el congreso.</p>
                 <p class="registrado-nota">Para cualquier información: <a href="mailto:dgpip@untrm.edu.pe">administrador@fisme.untrm.edu.pe</a></p>
             </div>
             <div class=" text-center">
-                <a href="inscripcion.php" class="button alert addButton">Regresar</a>
+                <a href="{{route('welcome.index')}}" class="button alert addButton">Regresar</a>
             </div>
 
         </div>

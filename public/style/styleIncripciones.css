@@ -60,11 +60,6 @@ header {
   padding: 8px auto;
  }
 
-.btn {
-  color: white;
-  background-color: #D1003E;
-  padding: 10px 20px;
-  border-radius: 5px; }
 
 .ocultar {
   display: none; }

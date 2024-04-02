@@ -7,14 +7,8 @@ use Illuminate\Support\Facades\Route;
 //Welcome
 Route::get('/', [welcomeController::class, 'index'])->name('welcome.index');
 Route::get('/ponente/{ponente}', [welcomeController::class, 'showPonente'])->name('welcome.show-ponente');
-
-Route::get('/inscripciones', function () {
-    return view('inscripciones');
-});
-
-Route::get('/inscripciones-finalizado', function () {
-    return view('registroFinalizado');
-});
+Route::get('/inscripciones', [welcomeController::class, 'inscripciones'])->name('welcome.inscripciones');
+Route::post('/inscripciones', [welcomeController::class, 'saveInscripciones'])->name('welcome.save-inscripciones');
 
 //BotMan
 Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
