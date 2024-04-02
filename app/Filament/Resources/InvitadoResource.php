@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class InvitadoResource extends Resource
 {
@@ -110,7 +113,21 @@ class InvitadoResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+
+                    /* ExportAction::make()->exports([
+                        ExcelExport::make()->fromTable()->except([
+                            'created_at', 'updated_at',
+                        ]),
+                    ])*/
                 ]),
+
+                ExportBulkAction::make()->exports([
+                    //ExcelExport::make('table')->fromTable(),
+                    ExcelExport::make('form')
+                    ->fromForm()
+                    ->withFilename(date('Y-m-d') . ' - invitados export'),
+                ])
+
             ]);
     }
 
