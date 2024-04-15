@@ -251,7 +251,7 @@
   <!--==========================
       Preguntas
     ============================-->
-  <section id="faq" class="wow fadeInUp">
+  <!---section id="faq" class="wow fadeInUp">
 
     <div class="container">
 
@@ -315,7 +315,7 @@
 
     </div>
 
-  </section>
+  </section---->
 
 
   <!--==========================
