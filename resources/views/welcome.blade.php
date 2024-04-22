@@ -14,7 +14,7 @@
     <!--<a href="#about" class="about-btn scrollto">English</a>-->
     <h1 class="mb-4 pb-0">{{$congreso->numeracion}}<br><span>{{$congreso->nombre_1}} </span> <br>{{$congreso->nombre_2}}</h1>
     <p class="mb-4 pb-0">{{$congreso->tag_fecha}}, {{$congreso->tag_lugar}}</p>
-    <a href="https://www.youtube.com/watch?v=5AVP6bJf4fE" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+    <!--a href="https://www.youtube.com/watch?v=5AVP6bJf4fE" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a--->
 
   </div>
 </section>
@@ -33,11 +33,11 @@
         </div>
         <div class="col-lg-3">
           <h3><i class="fa fa-map-marker"></i> Lugar:</h3>
-          <p>Plataforma digital FISME (Youtube)<br>Transmisión en vivo</p>
-          <div class="linksocial">
+          <p>Transmision en vivo a traves de la pagina de la facultad en Facebook</p>
+          <!---div class="linksocial">
             <a href="https://www.youtube.com/user/UNTRM"><i class="fa fa-youtube"></i></a>
             <a href="https://www.facebook.com/untrmbagua"><i class="fa fa-facebook"></i></a>
-          </div>
+          </div--->
 
         </div>
         <div class="col-lg-3">

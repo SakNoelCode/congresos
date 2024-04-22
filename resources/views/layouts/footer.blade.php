@@ -3,7 +3,7 @@
   ============================-->
   <footer id="footer">
 
-      <!--<div class="footer-top">
+    <!--<div class="footer-top">
       <div class="container">
         <div class="row">
 
@@ -59,22 +59,24 @@
       </div>
     </div>-->
 
-      <div class="container">
-          <div>
-              <img src="img/fisme.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="copyright">
-              &copy; UNTRM <strong>Facultad de Ingeniería de Sistemas y Mecánica Eléctrica</strong>. Bagua, Amazonas, Perú. 2020
-          </div>
-          <center>
-              <div class="social-links mt-3">
-                  <!--<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
-                  <a href="https://www.facebook.com/untrmbagua" class="facebook"><i class="fa fa-facebook"></i></a>
-                  <a href="https://www.youtube.com/user/UNTRM" class="youtube"><i class="fa fa-youtube"></i></a>
-                  <!--<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>-->
-              </div>
-          </center>
+    <div class="container">
+      <div>
+        <img src="img/fisme.jpg" class="img-fluid" alt="">
       </div>
+      <div class="copyright">
+        &copy; UNTRM <strong>Facultad de Ingeniería de Sistemas y Mecánica Eléctrica</strong>. Bagua, Amazonas, Perú.
+        <?php $year = date("Y");
+        echo $year;  ?>
+      </div>
+      <center>
+        <div class="social-links mt-3">
+          <!--<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>-->
+          <a href="https://www.facebook.com/untrmbagua" class="facebook"><i class="fa fa-facebook"></i></a>
+          <!---a href="https://www.youtube.com/user/UNTRM" class="youtube"><i class="fa fa-youtube"></i></a--->
+          <!--<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>-->
+        </div>
+      </center>
+    </div>
 
 
   </footer>
