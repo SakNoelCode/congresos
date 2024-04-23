@@ -34,10 +34,10 @@
         <div class="col-lg-3">
           <h3><i class="fa fa-map-marker"></i> Lugar:</h3>
           <p>Transmision en vivo a traves de la pagina de la facultad en Facebook</p>
-          <!---div class="linksocial">
-            <a href="https://www.youtube.com/user/UNTRM"><i class="fa fa-youtube"></i></a>
+          <div class="linksocial">
+            <!--a href="https://www.youtube.com/user/UNTRM"><i class="fa fa-youtube"></i></a--->
             <a href="https://www.facebook.com/untrmbagua"><i class="fa fa-facebook"></i></a>
-          </div--->
+          </div>
 
         </div>
         <div class="col-lg-3">
