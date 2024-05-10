@@ -36,4 +36,9 @@ class Congreso extends Model
     {
         return $this->hasMany(Invitado::class);
     }
+
+    public function chatBot(): HasMany
+    {
+        return $this->hasMany(Chatbot::class);
+    }
 }

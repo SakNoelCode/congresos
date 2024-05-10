@@ -94,7 +94,7 @@
       <ul class="nav nav-tabs" role="tablist">
         @foreach ($programacion as $key => $item)
         <!--Recorrer encabezados--->
-        <li class="nav-item">
+        <li class="nav-item mb-3">
           <a class="nav-link {{$key==0? 'active' : ''}}" href="#day-{{$key+1}}" role="tab" data-toggle="tab">
             {{$item->encabezado}}
           </a>
@@ -126,13 +126,20 @@
           <!-----Si es una ponencia---->
           <div class="row schedule-item">
             <div class="col-md-2"><time>{{$actividad->hora_inicio}}</time><time>{{$actividad->hora_fin}}</time></div>
-            <div class="col-md-10">
+            <div class="col-md-8">
               <div class="speaker">
-                <img src="{{asset('storage/'.$actividad->img_bandera_path)}}" alt="Bandera de país">
+                <img src="{{asset('storage/'.$actividad->ponente->img_path)}}" alt="{{$actividad->ponente->nombres}}">
               </div>
               <h4>Ponencia: <span>"{{$actividad->encabezado}}"</span></h4>
               <p>{{$actividad->ponente->gerundio. ' '.$actividad->ponente->nombres}}</p>
               <p>{{$actividad->ponente->centro_estudios}}</p>
+
+            </div>
+            <div class="col-md-2">
+              <div class="speaker">
+
+                <img src="{{asset('storage/'.$actividad->img_bandera_path)}}" alt="Bandera de país">
+              </div>
             </div>
           </div>
           @endif
@@ -548,6 +555,7 @@
 <!--==========================
       Patrocinadores
     ============================-->
+@if ($patrocinadores->count())
 <section id="sponsors" class="section-with-bg wow fadeInUp">
 
   <div class="container">
@@ -570,7 +578,7 @@
   </div>
 
 </section>
-
+@endif
 
 @include('layouts.footer')
 

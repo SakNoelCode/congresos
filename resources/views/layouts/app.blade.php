@@ -42,7 +42,7 @@
         @yield('content')
     </div>
 
-    <a href="#" class="back-to-top" style="margin-bottom: 90px; z-index: 500;"><i class="fa fa-angle-up"></i></a>
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
     <!-- JavaScript Libraries -->
     <script src="{{asset('lib/jquery/jquery.min.js')}}"></script>
@@ -59,14 +59,14 @@
     <script src="{{asset('lib/js/main.js')}}"></script>
 
     <!-----Script Botman----->
-    <script>
+    <!---script>
         var botmanWidget = {
             //frameEndpoint: '/iFrameUrl'
             aboutText: 'Asistente Sak',
             introMessage: 'Hola, soy un asistente virtual. ¿Tienes alguna duda o consulta referente al congreso?'
         };
     </script>
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script---->
 
     @stack('scripts')
 </body>

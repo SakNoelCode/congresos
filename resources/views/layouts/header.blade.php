@@ -19,6 +19,10 @@
                 <li><a href="#schedule">Programa</a></li>
                 <li><a href="#gallery">Galería</a></li>
                 <li><a href="#venue">Ubicación</a></li>
+                @if ($patrocinadores->count())
+                <li><a href="#sponsors">Patrocinadores</a></li>
+                @endif
+                
                 <!--<li><a href="#hotels">Hotels</a></li>-->
 
                 <!--<li><a href="#sponsors">Sponsors</a></li>-->
